@@ -1,0 +1,163 @@
+{
+  "informacoes_pessoais": {
+    "nome": "Gustavo Lacerda",
+    "cidade": "Fortaleza, Cear\u00e1, Brasil",
+    "bairro": "",
+    "email": "",
+    "telefone": "",
+    "cargo": "Engenheiro Civil"
+  },
+  "resumo_qualificacoes": [
+    {
+      "resumo": "Engenheiro civil motivado, com experi\u00eancia em gerenciamento de contratos, projetos e obra, medi\u00e7\u00f5es e elabora\u00e7\u00e3o de cronogramas.",
+      "qualificacoes_chave": [
+        {
+          "qualificacao": "Experi\u00eancia em gerenciamento de projetos e equipes"
+        },
+        {
+          "qualificacao": "Conhecimento em m\u00e9todos construtivos e saneamento b\u00e1sico"
+        }
+      ]
+    }
+  ],
+  "experiencia_profissional": [
+    {
+      "empresa": "MRV&CO",
+      "cargo": "Auxiliar de Engenharia - Instala\u00e7\u00f5es",
+      "periodo": "abril de 2024 - agosto de 2024",
+      "atividades": [
+        {
+          "atividade": "Acompanhamento e apoio \u00e0 infraestrutura, instala\u00e7\u00f5es el\u00e9tricas e hidrossanit\u00e1rias"
+        },
+        {
+          "atividade": "Fiscaliza\u00e7\u00e3o e aprova\u00e7\u00e3o das instala\u00e7\u00f5es das \u00e1reas comuns e apartamentos"
+        }
+      ],
+      "projetos": []
+    },
+    {
+      "empresa": "CDG Engenharia",
+      "cargo": "Assistente T\u00e9cnico de Engenharia I",
+      "periodo": "outubro de 2023 - fevereiro de 2024",
+      "atividades": [
+        {
+          "atividade": "Acompanhamento e gerenciamento de equipes de amplia\u00e7\u00e3o e liga\u00e7\u00e3o de rede de esgoto"
+        },
+        {
+          "atividade": "Elabora\u00e7\u00e3o de relat\u00f3rios e aux\u00edlio na log\u00edstica e suprimentos de obra"
+        }
+      ],
+      "projetos": []
+    },
+    {
+      "empresa": "BMX1 Engenharia",
+      "cargo": "Auxiliar de engenharia",
+      "periodo": "dezembro de 2022 - junho de 2023",
+      "atividades": [
+        {
+          "atividade": "Gerenciamento e supervis\u00e3o de equipes em obras de saneamento b\u00e1sico"
+        },
+        {
+          "atividade": "Elabora\u00e7\u00e3o de di\u00e1rio de obra e relat\u00f3rios de acompanhamento"
+        }
+      ],
+      "projetos": []
+    },
+    {
+      "empresa": "Certare Engenharia e Consultoria",
+      "cargo": "Assistente de Engenharia Civil",
+      "periodo": "fevereiro de 2022 - dezembro de 2022",
+      "atividades": [
+        {
+          "atividade": "Desenvolvimento de atividades em sala t\u00e9cnica no contrato da CSP"
+        },
+        {
+          "atividade": "Gerenciamento e padroniza\u00e7\u00e3o de projetos e documentos"
+        }
+      ],
+      "projetos": []
+    },
+    {
+      "empresa": "Certare Engenharia e Consultoria",
+      "cargo": "Estagi\u00e1rio de engenharia",
+      "periodo": "setembro de 2021 - fevereiro de 2022",
+      "atividades": [
+        {
+          "atividade": "Aux\u00edlio no gerenciamento e corre\u00e7\u00e3o de projetos da Mineradora Vale"
+        },
+        {
+          "atividade": "Elabora\u00e7\u00e3o e an\u00e1lise de memorial de c\u00e1lculo e relat\u00f3rios finais"
+        }
+      ],
+      "projetos": []
+    },
+    {
+      "empresa": "Prefeitura Municipal de Fortaleza",
+      "cargo": "Est\u00e1gio Supervisionado",
+      "periodo": "mar\u00e7o de 2021 - julho de 2021",
+      "atividades": [
+        {
+          "atividade": "An\u00e1lise de licita\u00e7\u00f5es, or\u00e7amentos e aditivos"
+        },
+        {
+          "atividade": "Acompanhamento de obras da prefeitura"
+        }
+      ],
+      "projetos": []
+    },
+    {
+      "empresa": "Edifica Solu\u00e7\u00f5es",
+      "cargo": "Diretor de projetos",
+      "periodo": "novembro de 2019 - fevereiro de 2021",
+      "atividades": [
+        {
+          "atividade": "Gerenciamento e execu\u00e7\u00e3o de projetos de Engenharia Civil e Arquitetura"
+        },
+        {
+          "atividade": "Supervis\u00e3o de colaboradores e gest\u00e3o de pessoas"
+        }
+      ],
+      "projetos": []
+    },
+    {
+      "empresa": "Liq",
+      "cargo": "Operador de telemarketing",
+      "periodo": "fevereiro de 2016 - mar\u00e7o de 2019",
+      "atividades": [
+        {
+          "atividade": "Contorno de obje\u00e7\u00f5es e monitoramento de atendimento ao cliente"
+        },
+        {
+          "atividade": "Acompanhamento de m\u00faltiplos bancos de dados"
+        }
+      ],
+      "projetos": []
+    }
+  ],
+  "educacao": [
+    {
+      "instituicao": "Unichristus",
+      "grau": "Bacharelado em Engenharia Civil",
+      "ano_formatura": "2023"
+    },
+    {
+      "instituicao": "UniCesumar",
+      "grau": "Bacharelado em Engenharia Civil",
+      "ano_formatura": "2024"
+    }
+  ],
+  "certificacoes": [
+    {
+      "certificado": "Representante Pedag\u00f3gico"
+    },
+    {
+      "certificado": "Controle F\u00edsico e Financeiro de Obras e Empreendimentos, com Apoio do MS Project"
+    },
+    {
+      "certificado": "Inspe\u00e7\u00e3o Predial e Laudos T\u00e9cnicos"
+    },
+    {
+      "certificado": "Eletricista Residencial"
+    }
+  ]
+}
