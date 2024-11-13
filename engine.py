@@ -19,18 +19,6 @@ def create_docx_from_json(arquivo_json, arquivo_saida='curriculo.docx'):
     # Carregar dados JSON
     with open(arquivo_json, 'r', encoding='utf-8') as f:
         dados = json.load(f)
-    
-    # Diagnóstico para exibir estrutura dos dados JSON
-    print("Estrutura dos Dados JSON:")
-    print(json.dumps(dados, indent=2))
-    
-    # Verificar se os dados são um dicionário
-    if isinstance(dados, str):
-        try:
-            dados = json.loads(dados)
-        except json.JSONDecodeError:
-            print("Erro: Não foi possível interpretar a string JSON")
-            return
 
     # Criar um novo Documento
     doc = Document()
@@ -41,112 +29,113 @@ def create_docx_from_json(arquivo_json, arquivo_saida='curriculo.docx'):
     estilo.font.size = Pt(11)
     estilo.font.color.rgb = RGBColor(0, 0, 0)  # Define a cor preta
 
-    # Seção de Informações Pessoais
+    # Função para adicionar espaço entre seções
+    def adicionar_espaco():
+        doc.add_paragraph().paragraph_format.space_after = Pt(12)
+
+    # Nome (Cabeçalho Centralizado)
     informacoes_pessoais = dados.get('informacoes_pessoais', {})
-    if not isinstance(informacoes_pessoais, dict):
-        informacoes_pessoais = {}
-    
-    # Nome (Cabeçalho)
     nome = informacoes_pessoais.get('nome', 'Nome Não Encontrado')
     paragrafo_nome = doc.add_paragraph(nome)
-    
-    if paragrafo_nome.runs:
-        nome_run = paragrafo_nome.runs[0]
-        nome_run.bold = True
-        nome_run.font.size = Pt(16)
-        nome_run.font.color.rgb = RGBColor(0, 0, 0)  # Define a cor preta
-    paragrafo_nome.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
+    nome_run = paragrafo_nome.runs[0]
+    nome_run.bold = True
+    nome_run.font.size = Pt(16)
+    paragrafo_nome.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
-    # Informações de Contato
+    # Informações de Contato (Alinhado à esquerda)
+    adicionar_espaco()
     contato = f"""Cidade: {informacoes_pessoais.get('cidade', 'N/A')}
 Bairro: {informacoes_pessoais.get('bairro', 'N/A')}
 Email: {informacoes_pessoais.get('email', 'N/A')} 
 Telefone: {informacoes_pessoais.get('telefone', 'N/A')}
 Posição: {informacoes_pessoais.get('cargo', 'N/A')}"""
-        
     paragrafo_contato = doc.add_paragraph(contato)
     paragrafo_contato.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
 
     # Formação
-    doc.add_heading('Formação', level=2)
+    adicionar_espaco()
+    paragrafo_formacao = doc.add_paragraph('Formação:')
+    paragrafo_formacao.runs[0].bold = True
+    paragrafo_formacao.runs[0].font.size = Pt(12)
+    
     educacao = dados.get('educacao', [])
     for item in educacao:
-        if not isinstance(item, dict):
-            continue
         instituicao = item.get('instituicao', 'Instituição Não Especificada')
         grau = item.get('grau', 'Grau Não Especificado')
         ano_formatura = item.get('ano_formatura', 'Ano Não Especificado')
         
-        paragrafo_educacao = doc.add_paragraph()
-        paragrafo_educacao.add_run(f'{instituicao}, {grau}').bold = True
-        paragrafo_educacao.add_run(f' - {ano_formatura}')
+        paragrafo_educacao = doc.add_paragraph(f' • {grau}, {instituicao} - finalizado em {ano_formatura}')
+        paragrafo_educacao.paragraph_format.left_indent = Pt(18)
 
     # Certificações
-    doc.add_heading('Certificações', level=2)
+    adicionar_espaco()
+    paragrafo_certificacoes = doc.add_paragraph('Certificações:')
+    paragrafo_certificacoes.runs[0].bold = True
+    paragrafo_certificacoes.runs[0].font.size = Pt(12)
+    
     certificacoes = dados.get('certificacoes', [])
     for item in certificacoes:
-        if not isinstance(item, dict):
-            continue
         certificado = item.get('certificado', 'Certificado Não Especificado')
-        paragrafo_certificacao = doc.add_paragraph()
-        paragrafo_certificacao.add_run(f'• {certificado}')
+        paragrafo_certificacao = doc.add_paragraph(f' • {certificado}')
+        paragrafo_certificacao.paragraph_format.left_indent = Pt(18)
 
     # Resumo de Qualificações
-    doc.add_heading('Resumo de Qualificações', level=2)
+    adicionar_espaco()
+    paragrafo_qualificacoes = doc.add_paragraph('Resumo de Qualificações:')
+    paragrafo_qualificacoes.runs[0].bold = True
+    paragrafo_qualificacoes.runs[0].font.size = Pt(12)
+    
     qualificacoes = dados.get('resumo_qualificacoes', [])
-    if qualificacoes and isinstance(qualificacoes, list):
-        primeira_qualificacao = qualificacoes[0] if qualificacoes else {}
-        if isinstance(primeira_qualificacao, dict):
-            resumo = primeira_qualificacao.get('resumo', '')
-            if resumo:
-                doc.add_paragraph(resumo)
-
-            qualificacoes_chave = primeira_qualificacao.get('qualificacoes_chave', [])
-            if qualificacoes_chave:
-                lista_qualificacoes = doc.add_paragraph()
-                for qual in qualificacoes_chave:
-                    texto_qualificacao = qual.get('qualificacao', '') if isinstance(qual, dict) else str(qual)
-                    lista_qualificacoes.add_run('• ' + texto_qualificacao + '\n')
+    if qualificacoes:
+        primeira_qualificacao = qualificacoes[0]
+        resumo = primeira_qualificacao.get('resumo', '')
+        if resumo:
+            doc.add_paragraph(resumo)
+        
+        qualificacoes_chave = primeira_qualificacao.get('qualificacoes_chave', [])
+        for qual in qualificacoes_chave:
+            texto_qualificacao = qual.get('qualificacao', '') if isinstance(qual, dict) else str(qual)
+            paragrafo_qual = doc.add_paragraph(f' • {texto_qualificacao}')
+            paragrafo_qual.paragraph_format.left_indent = Pt(18)
 
     # Experiência Profissional
-    doc.add_heading('Experiências', level=2)
-    experiencias = dados.get('experiencia_profissional', [])
+    adicionar_espaco()
+    paragrafo_experiencia = doc.add_paragraph('Experiências:')
+    paragrafo_experiencia.runs[0].bold = True
+    paragrafo_experiencia.runs[0].font.size = Pt(12)
     
+    experiencias = dados.get('experiencia_profissional', [])
     for trabalho in experiencias:
-        if not isinstance(trabalho, dict):
-            continue
-        
-        cabecalho_trabalho = doc.add_paragraph()
-        cargo = trabalho.get('cargo', 'Cargo Não Especificado')
+        adicionar_espaco()
         empresa = trabalho.get('empresa', 'Empresa Não Especificada')
+        cargo = trabalho.get('cargo', 'Cargo Não Especificado')
         
-        cabecalho_trabalho.add_run(f'**{empresa} | {cargo}**').bold = True
+        paragrafo_trabalho = doc.add_paragraph(f'{empresa}')
+        paragrafo_trabalho.runs[0].bold = True
+        doc.add_paragraph(f'Cargo: {cargo}')
         doc.add_paragraph(f'Período: {trabalho.get("periodo", "Período Não Especificado")}')
         
         atividades = trabalho.get('atividades', [])
         if atividades:
-            lista_atividades = doc.add_paragraph()
             for atividade in atividades:
                 texto_atividade = atividade.get('atividade', '') if isinstance(atividade, dict) else str(atividade)
-                lista_atividades.add_run('• ' + texto_atividade + '\n')
+                paragrafo_atividade = doc.add_paragraph(f' • {texto_atividade}')
+                paragrafo_atividade.paragraph_format.left_indent = Pt(18)
         
         projetos = trabalho.get('projetos', [])
         if projetos:
-            doc.add_heading('Projetos', level=3)
+            paragrafo_projetos = doc.add_paragraph('Projetos:')
+            paragrafo_projetos.runs[0].bold = True
+            paragrafo_projetos.paragraph_format.left_indent = Pt(18)
             for projeto in projetos:
-                if not isinstance(projeto, dict):
-                    continue
                 projeto_titulo = projeto.get('titulo', 'Projeto Não Especificado')
                 projeto_descricao = projeto.get('descricao', '')
-                doc.add_paragraph(f'**{projeto_titulo}**')
-                doc.add_paragraph(projeto_descricao)
+                doc.add_paragraph(f'{projeto_titulo}').paragraph_format.left_indent = Pt(24)
+                doc.add_paragraph(projeto_descricao).paragraph_format.left_indent = Pt(24)
         
-        doc.add_paragraph()
-
     # Salvar o documento
     doc.save(arquivo_saida)
     print(f"Currículo salvo em {arquivo_saida}")
-
 def process_text(texto):
     """Processa o texto e retorna JSON estruturado com tratamento de erros aprimorado."""
     chave_api = os.getenv('OPENAI_API_KEY')
